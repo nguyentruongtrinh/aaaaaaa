@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Car Form</title>
+    <script>
+        function validateForm() {
+            const MaXe = document.forms["carForm"]["MaXe"].value;
+            const Name = document.forms["carForm"]["Name"].value;
+            const Price = document.forms["carForm"]["Price"].value;
+            const Year = document.forms["carForm"]["Year"].value;
+            const Brand = document.forms["carForm"]["Brand"].value;
+            const errors = [];
+
+            if (!MaXe) errors.push("MaXe is required");
+            if (!Name || /\d/.test(Name)) errors.push("Name must be letters only");
+            if (!Price || isNaN(Price)) errors.push("Price must be a number");
+            if (!Year || isNaN(Year) || Year < 1980 || Year > 2024) errors.push("Year must be between 1980 and 2024");
+            if (!Brand) errors.push("Brand is required");
+
+            if (errors.length > 0) {
+                alert(errors.join(", "));
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+<h2>Create Car</h2>
+<form name="carForm" action="/cars/create" method="post" onsubmit="return validateForm()">
+    <input type="text" name="MaXe" placeholder="MaXe"><br>
+    <input type="text" name="Name" placeholder="Name"><br>
+    <input type="number" name="Price" placeholder="Price"><br>
+    <input type="number" name="Year" placeholder="Year" min="1980" max="2024"><br>
+    <input type="text" name="Brand" placeholder="Brand"><br>
+    <button type="submit">Create Car</button>
+</form>
+</body>
+</html>
